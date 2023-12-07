@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+}
+.logo-head{
+    z-index: -1;
+}
+.logo {
+  margin-left: 30px;
+  height: 100px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: black; */
+  /* color: whitesmoke; */
+  height: 20vh;
+  border: 2px solid palegoldenrod;
+}
+.header ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+.nav-items {
+  width: 500px;
+  margin-right: 50px;
+}
+.card{
+    width: 250px;
+    margin-left: 20px;
+    border: 1px solid blue;
+    padding: 10px ;
+}
+.card >img{
+    width: 100%;
+    height: 200px;
+}
