@@ -26,21 +26,65 @@ const Header = () => {
   );
 };
 
+const restrauntList = [
+  {
+    name: "Pizza",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/9ec9ffd900c24ef751e2f34ba3d2fd4b",
+    cusine: ["pizza", "burger", "pasta"],
+    rating: "4.2",
+  },
+  {
+    name: "Pizza",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/9ec9ffd900c24ef751e2f34ba3d2fd4b",
+    cusine: ["pizza", "burger", "pasta"],
+    rating: "4.2",
+  },
+  {
+    name: "Pizza",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/9ec9ffd900c24ef751e2f34ba3d2fd4b",
+    cusine: ["pizza", "burger", "pasta"],
+    rating: "4.2",
+  },
+  {
+    name: "Pizza",
+    image:
+      "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/9ec9ffd900c24ef751e2f34ba3d2fd4b",
+    cusine: ["pizza", "burger", "pasta"],
+    rating: "4.2",
+  },
+];
 const RestrauntCard = () => {
+  const { image, name, cusine, rating } = restrauntList;
   return (
     <div className="card">
-      <img
-        src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/9ec9ffd900c24ef751e2f34ba3d2fd4b"
-        alt="pizza"
-      />
-      <h2>Pizza</h2>
-      <h3>snack</h3>
+      <img src={image} alt="pizza" />
+      <h2>{name}</h2>
+      <h3>{cusine.join(", ")}</h3>
+      <h4>{rating} Stars</h4> 
     </div>
   );
 };
 
 const Body = () => {
-  return <RestrauntCard/>;
+  return (
+    <div className="restraunt-list">
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+      <RestrauntCard />
+    </div>
+  );
 };
 const Footer = () => {
   return <h2>footer</h2>;
