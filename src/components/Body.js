@@ -1,16 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { restrauntList } from "../Constant";
 import RestrauntCard from "./RestrauntCard";
+import Shimmer from "./Shimmer";
 
 function filterData(sInput, Restraunt) {
   return Restraunt.filter((rest) =>
-    rest.info.name.toUpperCase().includes(sInput.toUpperCase())
+    rest?.name.toUpperCase().includes(sInput.toUpperCase())
   );
 }
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [Restraunt, setRestraunt] = useState(restrauntList);
-  return (
+  const [filteredRestraunt, setFilteredRestraunt] = useState([]);
+  const [allRestraunt, setAllRestraunt] = useState([]);
+  const [restrauntData, setRestrauntData] = useState([]);
+
+  useEffect(() => {
+    getSwiggyData();
+  }, []);
+
+  async function getSwiggyData() {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5582034&lng=73.7139503&collection=90964&tags=layout_ux4&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
+    );
+    const json = await data.json();
+    const restraList = json?.data?.cards;
+    restraList.map((item) => {
+      if (item?.card?.card?.info !== undefined) {
+        restrauntData.push(item?.card?.card?.info);
+      }
+    });
+    setFilteredRestraunt(restrauntData);
+    setAllRestraunt(restrauntData);
+  }
+  if (!allRestraunt) return null;
+  // if (filteredRestraunt.length === 0) {
+  //   return <h1>No resta found</h1>;
+  // }
+  return allRestraunt?.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -22,21 +50,22 @@ const Body = () => {
         />
         <button
           onClick={() => {
-            if (searchInput === "") {
-              setRestraunt(restrauntList);
-            } else {
-              const data = filterData(searchInput, Restraunt);
-              setRestraunt(data);
-            }
-            setSearchInput("");
+            const data = filterData(searchInput, allRestraunt);
+              setFilteredRestraunt(data);
+            
           }}
         >
           Search
         </button>
       </div>
       <div className="restraunt-list">
-        {Restraunt.map((item) => {
-          return <RestrauntCard {...item.info} key={item.info?.id} />;
+          {filteredRestraunt.map((item) => {
+          console.log(filteredRestraunt.length)
+          return filteredRestraunt.length === 0 ? (
+            <h1>no restar found</h1>
+          ) : (
+            <RestrauntCard {...item} key={item?.id} />
+          );
         })}
       </div>
     </>

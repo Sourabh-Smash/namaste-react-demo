@@ -34,6 +34,15 @@
     border: 1px solid blue;
     padding: 10px ;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.card h3{
+  display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 .card >img{
     width: 100%;
