@@ -1,11 +1,12 @@
 import React from 'react'
 import logo from "/assets/img/foodvilla.png";
+import { Link } from 'react-router-dom';
 
 const Title = () => {
   return (
-    <a href="/" className="logo-head">
+    <Link to="/" className="logo-head">
       <img src={logo} alt="img" className="logo" />;
-    </a>
+    </Link>
   );
 }
 

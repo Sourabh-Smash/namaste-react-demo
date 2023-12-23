@@ -66,7 +66,7 @@ const Body = () => {
           ) : (
             <RestrauntCard {...item} key={item?.id} />
           );
-        })}
+        })}  
       </div>
     </>
   );
