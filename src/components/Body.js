@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { restrauntList } from "../Constant";
 import RestrauntCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 function filterData(sInput, Restraunt) {
   return Restraunt.filter((rest) =>
@@ -51,22 +52,20 @@ const Body = () => {
         <button
           onClick={() => {
             const data = filterData(searchInput, allRestraunt);
-              setFilteredRestraunt(data);
-            
+            setFilteredRestraunt(data);
           }}
         >
           Search
         </button>
       </div>
       <div className="restraunt-list">
-          {filteredRestraunt.map((item) => {
-          console.log(filteredRestraunt.length)
-          return filteredRestraunt.length === 0 ? (
-            <h1>no restar found</h1>
-          ) : (
-            <RestrauntCard {...item} key={item?.id} />
+        {filteredRestraunt.map((item) => {
+          return (
+            <Link to={"/restraunt/" + item?.id} key={item?.id}>
+              <RestrauntCard {...item} />
+            </Link>
           );
-        })}  
+        })}
       </div>
     </>
   );
