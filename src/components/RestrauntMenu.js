@@ -4,7 +4,6 @@ import { IMG_CDN_URL } from "../Constant";
 import Shimmer from "./Shimmer";
 const RestrauntMenu = () => {
   const param = useParams();
-  // con sole.log(param.id )
   const [restrauntMenu, setRestrauntMenu] = useState(null);
   useEffect(() => {
     getRestrauntMenu();
@@ -14,7 +13,6 @@ const RestrauntMenu = () => {
       `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=24.5582034&lng=73.7139503&restaurantId=${param.id}&catalog_qa=undefined&submitAction=ENTER`
     );
     const json = await data.json();
-    // console.log(json?.data?.cards[0]?.card?.card?.info?.sla);
     setRestrauntMenu(json?.data?.cards[0]?.card?.card?.info);
   }
   return (!restrauntMenu)?<Shimmer/>: (
