@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./src/components/Header";
 import Body from "./src/components/Body";
@@ -7,14 +7,17 @@ import About from "./src/components/About";
 import Error from "./src/components/Error";
 import Contact from "./src/components/Contact";
 import Profile from "./src/components/Profile";
-import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestrauntMenu from "./src/components/RestrauntMenu";
+import Shimmer from "./src/components/Shimmer";
+
+const Instamart = lazy(() => import("./src/components/Instamart"));
 
 const AppLayout = () => {
   return (
     <>
       <Header />
-      <Outlet/>
+      <Outlet />
       <Footer />
     </>
   );
@@ -24,10 +27,10 @@ const appRouter = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     errorElement: <Error />,
-    children:[
+    children: [
       {
         path: "/",
-        element:<Body/>
+        element: <Body />,
       },
       {
         path: "/about",
@@ -35,19 +38,27 @@ const appRouter = createBrowserRouter([
         children: [
           {
             path: "profile",
-            element:<Profile/>
-          }
-        ]
+            element: <Profile />,
+          },
+        ],
       },
       {
         path: "/contact",
-        element:<Contact/>
+        element: <Contact />,
       },
       {
         path: "/restraunt/:id",
-        element:<RestrauntMenu/>
-      }
-    ]
+        element: <RestrauntMenu />,
+      },
+      {
+        path: "/instamart",
+        element: (
+          <Suspense fallback={<Shimmer/>}>
+            <Instamart />
+          </Suspense>
+        ),
+      },
+    ],
   },
 ]);
 const root = ReactDOM.createRoot(document.querySelector(".root"));

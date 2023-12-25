@@ -14,11 +14,6 @@ class Profile extends Component {
   }
   async componentDidMount() {
       console.log("child-componentDidMount-" + this.props.name);
-    const data = await fetch("https://api.github.com/users/Sourabh-Smash");
-    const json = await data.json();
-    console.log(json);
-    this.setState({ userInfo: json });
-  
   }
     componentDidUpdate() {
         console.log("ComponentDidUpdate");

@@ -1,38 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { restrauntList } from "../Constant";
-import RestrauntCard from "./RestrauntCard";
+import React, { useState, lazy, Suspense } from "react";
+// import RestrauntCard from "./RestrauntCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import { filterData } from "../utils/Helper";
+import useRestraunt from "../utils/useRestraunt";
+import useOnline from "../utils/useOnline";
 
-function filterData(sInput, Restraunt) {
-  return Restraunt.filter((rest) =>
-    rest?.name.toUpperCase().includes(sInput.toUpperCase())
-  );
-}
+const RestrauntCard = lazy(() => import("./RestrauntCard"));
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [filteredRestraunt, setFilteredRestraunt] = useState([]);
-  const [allRestraunt, setAllRestraunt] = useState([]);
-  const [restrauntData, setRestrauntData] = useState([]);
 
-  useEffect(() => {
-    getSwiggyData();
-  }, []);
+  const [allRestraunt, filteredRestraunt, setFilteredRestraunt] =
+    useRestraunt();
 
-  async function getSwiggyData() {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5582034&lng=73.7139503&collection=90964&tags=layout_ux4&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
-    );
-    const json = await data.json();
-    const restraList = json?.data?.cards;
-    restraList.map((item) => {
-      if (item?.card?.card?.info !== undefined) {
-        restrauntData.push(item?.card?.card?.info);
-      }
-    });
-    setFilteredRestraunt(restrauntData);
-    setAllRestraunt(restrauntData);
-  }
+  const isOnline = useOnline();
+  // console.log(isOnline);
+  // if (!isOnline) {
+  //   return <h1>You are offline</h1>;
+  // }
   if (!allRestraunt) return null;
   // if (filteredRestraunt.length === 0) {
   //   return <h1>No resta found</h1>;
@@ -62,7 +47,9 @@ const Body = () => {
         {filteredRestraunt.map((item) => {
           return (
             <Link to={"/restraunt/" + item?.id} key={item?.id}>
-              <RestrauntCard {...item} />
+              <Suspense fallback={<Shimmer/>}>
+                <RestrauntCard {...item} />
+              </Suspense>
             </Link>
           );
         })}
