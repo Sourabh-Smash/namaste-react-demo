@@ -1,13 +1,16 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState, lazy, Suspense, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/Helper";
 import useRestraunt from "../utils/useRestraunt";
 import useOnline from "../utils/useOnline";
+import UserContext from "../utils/UserContext";
 
 const RestrauntCard = lazy(() => import("./RestrauntCard"));
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
+  const { user,setUser } = useContext(UserContext);
+  console.log(user);
 
   const [allRestraunt, filteredRestraunt, setFilteredRestraunt] =
     useRestraunt();
@@ -33,7 +36,8 @@ const Body = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <button className="bg-black text-white rounded-md p-3 hover:bg-slate-600"
+        <button
+          className="bg-black text-white rounded-md p-3 hover:bg-slate-600"
           onClick={() => {
             const data = filterData(searchInput, allRestraunt);
             setFilteredRestraunt(data);
@@ -41,6 +45,14 @@ const Body = () => {
         >
           Search
         </button>
+        <input
+          type="text"
+          className="bg-red-300 rounded-md mr-5 p-1 ml-5 focus:outline-none text-zinc-950 placeholder-slate-800"
+          value={user.name}
+          onChange={(e) =>
+            setUser({ name: e.target.value, email: "sourabh@gmail" })
+          }
+        />
       </div>
       <div className="restraunt-list flex flex-wrap w-[100%]  justify-center">
         {filteredRestraunt.map((item) => {
