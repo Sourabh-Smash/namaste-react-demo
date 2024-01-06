@@ -11,6 +11,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import RestrauntMenu from "./src/components/RestrauntMenu";
 import Shimmer from "./src/components/Shimmer";
 import UserContext from "./src/utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./src/utils/store";
+import Cart from "./src/components/Cart";
 const Instamart = lazy(() => import("./src/components/Instamart"));
 
 const AppLayout = () => {
@@ -19,13 +22,13 @@ const AppLayout = () => {
     email: "sourambhmena123@gmail.com",
   });
   return (
-    <>
+    <Provider store={store}>
       <UserContext.Provider value={{ user: user, setUser: setUser }}>
         <Header />
         <Outlet />
         <Footer />
       </UserContext.Provider>
-    </>
+    </Provider>
   );
 };
 const appRouter = createBrowserRouter([
@@ -64,6 +67,10 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "cart",
+        element:<Cart/>
+      }
     ],
   },
 ]);

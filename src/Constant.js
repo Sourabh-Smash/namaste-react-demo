@@ -4,6 +4,18 @@ export const IMG_CDN_URL =
 export const SWIGGY_RESTRAUNT_API =
   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=24.5582034&lng=73.7139503&collection=90964&tags=layout_ux4&sortBy=&filters=&type=rcv2&offset=0&page_type=null";
 
+export const restraMenuItems = [
+  "paneer",
+  "dal",
+  "Rice",
+  "sandwich",
+  "burger",
+  "pizza",
+  "momos",
+  "roti",
+  "choumeen",
+  "spring Rools",
+];
 export const restrauntList = [
   {
     info: {
